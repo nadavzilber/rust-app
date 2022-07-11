@@ -3,6 +3,8 @@ import AuthForm from "./components/AuthForm";
 import {AuthProvider, RequireAuth} from "./auth/Auth";
 import {Layout} from "./components/Layout";
 import './App.css';
+import Dashboard from "./components/Dashboard";
+import EmailList from "./components/Dashboard/EmailList";
 
 function App() {
   return (
@@ -11,10 +13,16 @@ function App() {
         <AuthProvider>
           <Routes>
             <Route element={<Layout />}>
-              <Route path="/" element={<h3>Public</h3>}/>
+              <Route path="/" element={<h3>Welcome Home</h3>}/>
               <Route path="/login" element={<AuthForm/>}/>
               <Route path="/test" element={<div>Unprotected Page</div>}/>
-              <Route path="/protected" element={<RequireAuth><h3>Protected Page</h3></RequireAuth>}/>
+              <Route path="emails" element={<RequireAuth><Dashboard/></RequireAuth>}>
+                <Route path="view" element={<EmailList/>}/>
+                <Route path="send" element={<h3>Send Emails Page</h3>}/>
+                {/* This is another element that can be rendered alongside with Dashboard
+                <Route index element={<div>Emails default index page</div>} /> */}
+              </Route>
+              <Route path='*' element={<div>404 Page Not Found</div>} />
             </Route>
           </Routes>
         </AuthProvider>
