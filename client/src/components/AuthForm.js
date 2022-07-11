@@ -1,6 +1,7 @@
-import React, {useRef} from "react"
+import React, {useRef, useState} from "react"
 import FormField from "./FormField";
-import {REGISTRATION_FORM} from "../constants";
+import {useAuth} from "../auth/Auth";
+import {useNavigate, useLocation} from 'react-router-dom'
 
 const formStyle = {
     margin: 'auto',
@@ -30,26 +31,40 @@ const authFormToggleLinkStyle = {
     cursor: 'pointer'
 }
 
-const AuthForm = ({formType, toggleAuthForm, authFormTypeOpposite}) => {
+const AuthForm = ({toggleAuthForm=null}) => {
+    const [formType, setFormType] = useState('login')
+    const [isLoginForm, setIsLoginForm] = useState(true)
     const usernameRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
-    const buttonText = formType === REGISTRATION_FORM ? 'Register' : 'Login'
+    const buttonText = formType.charAt(0).toUpperCase() + formType.slice(1)
+    const navigate = useNavigate()
+    const location = useLocation();
+    const auth = useAuth();
+    const from = location.state?.from?.pathname || "/";
+    console.log('App2 auth:', auth, from)
 
-    const handleSubmit = (e) => {
+    // const handleSubmit = async () => {
+    //     await auth.signIn(()=> console.log('App2 signIn cb done. auth:', auth))
+    // }
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const data = {
             email: emailRef.current.value,
             password: passwordRef.current.value
         }
-        if (formType === REGISTRATION_FORM) {
+        if (!isLoginForm) {
             data.username = usernameRef.current.value
         }
         console.log('data:', data)
         if (validateData(data)){
-            //submitHandler(data)
             //call API and handle response
-            setTimeout(() => handleResponse(), 2000)
+            console.log('AuthForm :: handleSubmit :: signing in')
+            await auth.signIn({email: data.email}, ()=> {
+                console.log('App2 signIn cb done. auth:', auth)
+                navigate(from, { replace: true })
+            })
         }
     };
 
@@ -62,24 +77,22 @@ const AuthForm = ({formType, toggleAuthForm, authFormTypeOpposite}) => {
         return true
     }
 
-    const handleResponse = (res) => {
-        console.log('handleResponse')
-        //if (res.status === 200 && res.success)
-    }
-
-    const capitalize = () => formType.charAt(0).toUpperCase() + formType.slice(1)
+    const switchTo = isLoginForm ? 'Register' : 'Login'
 
     return (
         <div>
             <form style={formStyle} onSubmit={handleSubmit}>
-                {formType == REGISTRATION_FORM && <FormField ref={usernameRef} label="Username:" type="text" isRequired={true}/>}
+                {!isLoginForm && <FormField ref={usernameRef} label="Username:" type="text" isRequired={true}/>}
                 <FormField ref={emailRef} label="Email:" type="email" isRequired={true}/>
                 <FormField ref={passwordRef} label="Password:" type="password" isRequired={true}/>
                 <div>
                     <button style={submitStyle} type="submit">{buttonText}</button>
                 </div>
             </form>
-            <p>Switch to <a style={authFormToggleLinkStyle} onClick={toggleAuthForm}>{authFormTypeOpposite}</a></p>
+            <p>Switch to <a style={authFormToggleLinkStyle} onClick={()=> {
+                setFormType(isLoginForm ? 'register' : 'login')
+                setIsLoginForm(!isLoginForm)
+            }}>{switchTo}</a></p>
         </div>
     );
 }
