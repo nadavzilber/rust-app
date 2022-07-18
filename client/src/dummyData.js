@@ -1,6 +1,6 @@
 //todo: make unclicked and CLICKED constants
 
-const fakeEmails = [
+const dummyData = [
     {
         to: {name: 'Nadav', email: 'nadav@evilcorp.com'},
         from: {name: 'Amazon', email: 'service@amazon.com'},
@@ -13,4 +13,4 @@ const fakeEmails = [
     },
 ]
 
-export default fakeEmails
+export default dummyData

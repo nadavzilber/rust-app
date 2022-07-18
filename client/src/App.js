@@ -1,10 +1,11 @@
 import {Route, Routes} from "react-router-dom";
 import AuthForm from "./components/AuthForm";
 import {AuthProvider, RequireAuth} from "./auth/Auth";
-import {Layout} from "./components/Layout";
+import {Layout} from "./components/Layout/Layout";
 import './App.css';
 import Dashboard from "./components/Dashboard";
 import EmailList from "./components/Dashboard/EmailList";
+import EmailForm from "./components/Dashboard/EmailForm";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
               <Route path="/test" element={<div>Unprotected Page</div>}/>
               <Route path="emails" element={<RequireAuth><Dashboard/></RequireAuth>}>
                 <Route path="view" element={<EmailList/>}/>
-                <Route path="send" element={<h3>Send Emails Page</h3>}/>
+                <Route path="send" element={<EmailForm />}/>
                 {/* This is another element that can be rendered alongside with Dashboard
                 <Route index element={<div>Emails default index page</div>} /> */}
               </Route>

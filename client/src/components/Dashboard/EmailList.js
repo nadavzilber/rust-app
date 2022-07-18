@@ -1,10 +1,10 @@
 import React, {useState} from "react"
-import fakeEmails from '../../fakeEmails'
+import dummyData from '../../dummyData'
 import skull from '../../assets/white-skull.png'
 import safe from '../../assets/safe.png'
 
 const EmailList = () => {
-    const [emails, setEmails] = useState(fakeEmails)
+    const [emails, setEmails] = useState(dummyData)
     console.log('emailList :: emails:', emails)
     return (
         <div>
