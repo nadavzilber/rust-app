@@ -1,0 +1,3 @@
+CLIENT TODO:
+
+* add active class css to main nav bar using react router

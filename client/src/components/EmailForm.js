@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
-import templates from '../../phishing_template.json'
+import templates from '../phishing_template.json'
 //import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './style.css'
+import '../style.css'
 //import {sendEmail} from "../Api";
 
 const toastProps =  {
@@ -42,7 +42,7 @@ const EmailForm = () => {
 
     const clearForm = (ev) => {
         ev.preventDefault()
-        setSelectedTemplate(null)
+        //setSelectedTemplate(null)
         setSenderName('')
         setSenderEmail('')
         setRecipientName('')
@@ -79,7 +79,9 @@ const EmailForm = () => {
 
 
     return (
-        <div className="container">
+        <>
+            <h3>Phishing Form Page</h3>
+            <div className="form-container">
             {/*<ToastContainer*/}
             {/*    position="top-right"*/}
             {/*    autoClose={5000}*/}
@@ -90,14 +92,15 @@ const EmailForm = () => {
             {/*    pauseOnFocusLoss*/}
             {/*    draggable*/}
             {/*    pauseOnHover/>*/}
-            <h3>Phishing Form</h3>
-            <select onChange={(ev) => onSelectTemplate(ev.target.value)} defaultValue={"select"}>
-                <option value="select">Select a template</option>
-                <option value="amazon">Amazon</option>
-                <option value="instagram">Instagram</option>
-                <option value="facebook">Facebook</option>
-            </select>
-            <button disabled={!selectedTemplate} onClick={loadTemplate}>Load</button>
+                <div className='template-selection'>
+                    <select onChange={(ev) => onSelectTemplate(ev.target.value)} defaultValue={"select"}>
+                        <option value="select">Select a template</option>
+                        <option value="amazon">Amazon</option>
+                        <option value="instagram">Instagram</option>
+                        <option value="facebook">Facebook</option>
+                    </select>
+                    <button disabled={!selectedTemplate} onClick={loadTemplate}>Load</button>
+                </div>
 
             <form className="phishing-form">
                 <div className="form-section">
@@ -130,7 +133,8 @@ const EmailForm = () => {
                 <button onClick={(ev) => validateAndSend(ev)}>Send email</button>
                 <button onClick={(ev) => clearForm(ev)}>Clear form</button>
             </form>
-        </div>)
+        </div>
+        </>)
 }
 
 export default EmailForm;

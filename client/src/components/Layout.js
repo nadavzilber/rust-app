@@ -1,7 +1,7 @@
 import {Link, Outlet, useNavigate} from "react-router-dom";
-import {useAuth} from "../../auth/Auth";
-import AuthStatus from "../AuthStatus";
-import './style.css'
+import {useAuth} from "../auth/Auth";
+import AuthStatus from "./AuthStatus";
+import '../style.css'
 
 export const Layout = () => {
     const auth = useAuth();
@@ -9,11 +9,10 @@ export const Layout = () => {
     const userExists = !!auth?.user
 
     return (
-        <div>
-            <nav className='topnav'>
+        <div className='main-container'>
+            <nav className='main-navbar navbar'>
                 <AuthStatus isConnected={userExists}/>
-                {userExists && <p>Welcome {auth.user.email}!{" "}</p>}
-                <ul className='layout-link-list'>
+                <ul className='navbar-links'>
                     <li>
                         <Link to="/">Home Page</Link>
                     </li>
@@ -22,16 +21,10 @@ export const Layout = () => {
                     </li>
                     {userExists && <li>
                         <a onClick={() => auth.signOut(() => navigate("/"))}>Sign Out</a>
-                        {/*<button*/}
-                        {/*    className='link-button'*/}
-                        {/*    onClick={() => auth.signOut(() => navigate("/"))}>*/}
-                        {/*    Sign out*/}
-                        {/*</button>*/}
                     </li>}
                 </ul>
             </nav>
-            {/*this enables nested routes*/}
-            <Outlet />
+            <Outlet /> {/*this enables nested routes*/}
         </div>
     )
 }

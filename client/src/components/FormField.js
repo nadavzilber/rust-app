@@ -2,7 +2,7 @@ import React, {forwardRef} from "react"
 
 const labelStyle = {
     margin: '10px 0 5px 0',
-    fontFamily: 'Arial, Helvetica, sans-serif',
+    // fontFamily: 'Arial, Helvetica, sans-serif',
     fontSize: '15px',
 };
 

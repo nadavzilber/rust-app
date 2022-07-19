@@ -1,19 +1,17 @@
-.layout {
-    margin: 12px;
-    border: 1px solid greenyellow;
-    color: black;
-    background-color: white;
-}
+/*.main-container {*/
+/*    position: relative;*/
+/*    height: 100%;*/
+/*}*/
 
-.layout-link-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
+/*.navbar-links {*/
+/*    list-style-type: none;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    overflow: hidden;*/
+/*}*/
 
-.layout-link-list li {
-    float: left;
-    padding: 8px;
-}
+/*.navbar-links li {*/
+/*    float: left;*/
+/*    padding: 8px;*/
+/*}*/
 

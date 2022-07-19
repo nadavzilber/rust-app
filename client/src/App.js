@@ -1,22 +1,22 @@
 import {Route, Routes} from "react-router-dom";
 import AuthForm from "./components/AuthForm";
 import {AuthProvider, RequireAuth} from "./auth/Auth";
-import {Layout} from "./components/Layout/Layout";
+import {Layout} from "./components/Layout";
 import './App.css';
-import Dashboard from "./components/Dashboard";
-import EmailList from "./components/Dashboard/EmailList";
-import EmailForm from "./components/Dashboard/EmailForm";
+import Dashboard from "./components";
+import EmailList from "./components/EmailList";
+import EmailForm from "./components/EmailForm";
+import Home from "./components/Home";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      {/*<header className="App-header">*/}
         <AuthProvider>
           <Routes>
             <Route element={<Layout />}>
-              <Route path="/" element={<h3>Welcome Home</h3>}/>
+              <Route path="/" element={<Home/>}/>
               <Route path="/login" element={<AuthForm/>}/>
-              <Route path="/test" element={<div>Unprotected Page</div>}/>
               <Route path="emails" element={<RequireAuth><Dashboard/></RequireAuth>}>
                 <Route path="view" element={<EmailList/>}/>
                 <Route path="send" element={<EmailForm />}/>
@@ -27,7 +27,7 @@ function App() {
             </Route>
           </Routes>
         </AuthProvider>
-      </header>
+      {/*</header>*/}
     </div>
   );
 }

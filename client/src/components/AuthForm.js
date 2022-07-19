@@ -2,36 +2,9 @@ import React, {useRef, useState} from "react"
 import FormField from "./FormField";
 import {useAuth} from "../auth/Auth";
 import {useNavigate, useLocation} from 'react-router-dom'
+import '../style.css'
 
-const formStyle = {
-    margin: 'auto',
-    padding: '10px',
-    border: '1px solid #c9c9c9',
-    borderRadius: '5px',
-    background: '#3e4462',
-    width: '220px',
-    display: 'block'
-};
-
-const submitStyle = {
-    margin: '10px 0 0 0',
-    padding: '7px 10px',
-    border: '1px solid #efffff',
-    borderRadius: '3px',
-    background: '#4e7294',
-    width: '100%',
-    fontSize: '15px',
-    color: 'white',
-    display: 'block',
-    cursor: 'pointer'
-};
-
-const authFormToggleLinkStyle = {
-    color: 'red',
-    cursor: 'pointer'
-}
-
-const AuthForm = ({toggleAuthForm=null}) => {
+const AuthForm = () => {
     const [formType, setFormType] = useState('login')
     const [isLoginForm, setIsLoginForm] = useState(true)
     const usernameRef = useRef();
@@ -42,11 +15,6 @@ const AuthForm = ({toggleAuthForm=null}) => {
     const location = useLocation();
     const auth = useAuth();
     const from = location.state?.from?.pathname || "/";
-    console.log('App2 auth:', auth, from)
-
-    // const handleSubmit = async () => {
-    //     await auth.signIn(()=> console.log('App2 signIn cb done. auth:', auth))
-    // }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -57,7 +25,7 @@ const AuthForm = ({toggleAuthForm=null}) => {
         if (!isLoginForm) {
             data.username = usernameRef.current.value
         }
-        console.log('data:', data)
+        console.log('AuthForm submit data:', data)
         if (validateData(data)){
             //call API and handle response
             console.log('AuthForm :: handleSubmit :: signing in')
@@ -81,19 +49,23 @@ const AuthForm = ({toggleAuthForm=null}) => {
 
     return (
         <div>
-            <form style={formStyle} onSubmit={handleSubmit}>
+            <p className='auth-text'>You need to be connected in order to proceed</p>
+        <div className='auth-container form-container'>
+            <form onSubmit={handleSubmit}>
                 {!isLoginForm && <FormField ref={usernameRef} label="Username:" type="text" isRequired={true}/>}
                 <FormField ref={emailRef} label="Email:" type="email" isRequired={true}/>
                 <FormField ref={passwordRef} label="Password:" type="password" isRequired={true}/>
                 <div>
-                    <button style={submitStyle} type="submit">{buttonText}</button>
+                    <button type="submit">{buttonText}</button>
                 </div>
             </form>
-            <p>Switch to <a style={authFormToggleLinkStyle} onClick={()=> {
+            <p>Switch to <a onClick={()=> {
                 setFormType(isLoginForm ? 'register' : 'login')
                 setIsLoginForm(!isLoginForm)
             }}>{switchTo}</a></p>
         </div>
+        </div>
+
     );
 }
 
