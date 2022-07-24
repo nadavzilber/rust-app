@@ -9,7 +9,7 @@ export const Toast = ({close, status, children}) => {
     return (
         <div className={`toast ${status}-toast`}>
             <div className="toast__text">{children}</div>
-            <p onClick={close} className="toast__close-btn">x</p>
-    </div>
+            <p onClick={close} className="toast__close-btn">&times;</p>
+        </div>
     );
 };

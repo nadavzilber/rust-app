@@ -1,10 +1,8 @@
 import React, {useRef, useState} from 'react'
-import templates from '../../phishing_template.json'
-//import axios from 'axios'
-import '../../style.css'
 import {useToast} from "../../toast";
 import {TooltipLabel} from "../TooltipLabel";
-//import {sendEmail} from "../Api";
+import templates from '../../phishing_template.json'
+import '../../style.css'
 
 const EmailForm = () => {
     const toast = useToast();
@@ -34,7 +32,6 @@ const EmailForm = () => {
 
     const clearForm = (ev) => {
         ev.preventDefault()
-        //setSelectedTemplate(null)
         setSenderName('')
         setSenderEmail('')
         setRecipientName('')
@@ -94,14 +91,7 @@ const EmailForm = () => {
         }, 2000);
     }
 
-    const onSelectTemplate = (value) => {
-        if (value === 'select'){
-            setSelectedTemplate(null)
-        } else {
-            setSelectedTemplate(value)
-        }
-    }
-
+    const onSelectTemplate = (value) => value === 'select' ? setSelectedTemplate(null) : setSelectedTemplate(value)
 
     return (
         <div>
@@ -140,15 +130,15 @@ const EmailForm = () => {
 
                         {/*<label htmlFor="text">Text</label>*/}
                         <TooltipLabel tooltip={`The email's text content`} htmlFor={"text"}>Text</TooltipLabel>
-                        <textarea id="text" name="text" placeholder="Write something.." value={text} onChange={(ev) => setText(ev.target.value)}/>
+                        <textarea id="text" name="text" placeholder="Text" value={text} onChange={(ev) => setText(ev.target.value)}/>
 
                         {/*<label htmlFor="html">HTML</label>*/}
                         <TooltipLabel tooltip={'HTML containing a malicious link, {{maliciousLink}} will be added automatically'} htmlFor={"html"}>HTML</TooltipLabel>
-                        <textarea id="html" name="html" placeholder="Write something.." value={html} onChange={(ev) => setHtml(ev.target.value)}/>
+                        <textarea id="html" name="html" placeholder="HTML" value={html} onChange={(ev) => setHtml(ev.target.value)}/>
 
                         {/*<label htmlFor="html-link-text">HTML Link Text</label>*/}
                         <TooltipLabel tooltip={'A call to action'} htmlFor={"html-link-text"}>HTML Link Text</TooltipLabel>
-                        <input type="text" id="html-link-text" name="html-link-text" placeholder="View details / Change password / Review" value={htmlLinkText} onChange={(ev) => setHtmlLinkText(ev.target.value)}/>
+                        <input type="text" id="html-link-text" name="html-link-text" placeholder="Example: View details / Change password / Review" value={htmlLinkText} onChange={(ev) => setHtmlLinkText(ev.target.value)}/>
                     </div>
 
                     <button ref={sendEmailButton} onClick={(ev) => validateAndSend(ev)}>Send email</button>
