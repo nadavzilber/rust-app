@@ -1,6 +1,6 @@
 import React from 'react';
-import skull from "../assets/white-skull.png";
-import safe from "../assets/safe.png";
+import skull from "../../assets/white-skull.png";
+import safe from "../../assets/safe.png";
 
 const Email = ({content}) => {
     const {status, to, from} = content

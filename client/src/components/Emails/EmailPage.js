@@ -1,17 +1,18 @@
 import React from "react"
-import {Link, Outlet} from "react-router-dom";
-import '../style.css'
+import {Outlet} from "react-router-dom";
+import CustomLink from "../CustomLink";
+import '../../style.css'
 
-const Dashboard = () => {
+const EmailsPage = () => {
     return (
         <div className='dashboard-container'>
             <div className='navbar'>
                 <ul className='navbar-links'>
                     <li>
-                        <Link to="view">View Sent Emails</Link>
+                        <CustomLink to="view">View Sent Emails</CustomLink>
                     </li>
                     <li>
-                        <Link to="send">Send New Email</Link>
+                        <CustomLink to="send">Send New Email</CustomLink>
                     </li>
                 </ul>
             </div>
@@ -20,4 +21,4 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard
+export default EmailsPage

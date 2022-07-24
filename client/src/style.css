@@ -259,6 +259,12 @@ button:not(:disabled):hover{
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    height: 35px;
+}
+
+a:visited {
+    color: #e5e86c;
 }
 
 .navbar a {
@@ -408,7 +414,7 @@ button:not(:disabled):hover{
 
 .navbar-links li {
     float: left;
-    padding: 8px;
+    /*padding: 8px;*/
 }
 
 
@@ -417,4 +423,31 @@ button:not(:disabled):hover{
 .home-page-container {
     width: 90%;
     display: inline-block;
+}
+
+.active-link {
+    background-color: #4a693d;
+    font-weight: bold;
+}
+
+.loader {
+    border: 16px solid rgb(201 201 201);
+    border-top: 16px solid #14b4a2;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: calc(50% - 200px);
+    left: calc(50% - 130px);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.form-field-label {
+    margin: 10px 0px 5px;
+    font-size: 15px;
 }

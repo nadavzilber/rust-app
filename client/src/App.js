@@ -1,13 +1,13 @@
 import React from "react";
 import {Route, Routes} from "react-router-dom";
-import AuthForm from "./components/AuthForm";
+import AuthForm from "./components/Auth/AuthForm";
 import {AuthProvider, RequireAuth} from "./auth/Auth";
-import {Layout} from "./components/Layout";
+import {Layout} from "./components/Layout/Layout";
 import './App.css';
-import Dashboard from "./components/Dashboard";
-import EmailList from "./components/EmailList";
-import EmailForm from "./components/EmailForm";
-import Home from "./components/Home";
+import EmailsPage from "./components/Emails/EmailPage";
+import EmailList from "./components/Emails/EmailList";
+import EmailForm from "./components/Emails/EmailForm";
+import Home from "./components/Home/Home";
 
 function App() {
   return (
@@ -18,10 +18,12 @@ function App() {
             <Route element={<Layout />}>
               <Route path="/" element={<Home/>}/>
               <Route path="/login" element={<AuthForm/>}/>
-              <Route path="emails" element={<RequireAuth><Dashboard/></RequireAuth>}>
+              <Route path="emails" element={<RequireAuth>
+                <EmailsPage/>
+              </RequireAuth>}> {/* nested routes are automatically protected by RequireAuth */}
                 <Route path="view" element={<EmailList/>}/>
                 <Route path="send" element={<EmailForm />}/>
-                {/* This is another element that can be rendered alongside with Dashboard
+                {/* This is another element that can be rendered alongside with Emails
                 <Route index element={<div>Emails default index page</div>} /> */}
               </Route>
               <Route path='*' element={<div>404 Page Not Found</div>} />

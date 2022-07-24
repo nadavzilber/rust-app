@@ -23,9 +23,9 @@ export const ToastProvider = (props) => {
             { id: generateUEID(), status, content, cb },
         ])};
     const close = (id, cb) => {
-        console.log('running cb')
+        console.log('closing and running cb')
         setToasts((currentToasts) => currentToasts.filter((toast) => toast.id !== id))
-        cb()
+        cb && cb()
     };
     const contextValue = useMemo(() => ({ open }), []);
 

@@ -1,3 +1,8 @@
 CLIENT TODO:
 
-* add active class css to main nav bar using react router
+DONE * add active class css to main nav bar using react router
+* fix styling -
+    white space on bottom and on top when scrolling
+    bad alignment on email list when zooming in
+
+

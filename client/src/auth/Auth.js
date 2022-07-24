@@ -4,9 +4,7 @@ import {useLocation, Navigate} from 'react-router-dom';
 export const RequireAuth = ({ children }) => {
     const auth = useAuth();
     const location = useLocation();
-    console.log('Auth :: RequireAuth :: auth.user?', auth.user)
     if (!auth.user) {
-        console.log('REDIRECTING!!!!!')
         // Redirect them to the /login page, but save the current location they were
         // trying to go to when they were redirected. This allows us to send them
         // along to that page after they login, which is a nicer user experience
@@ -23,12 +21,10 @@ export const RequireAuth = ({ children }) => {
 const fakeAuthProvider = {
     isAuthenticated: false,
     async signIn (callback) {
-        console.log('fakeAuthProvider signIn')
         fakeAuthProvider.isAuthenticated = true;
         setTimeout(callback, 100); // fake async
     },
     async signOut(callback) {
-        console.log('fakeAuthProvider signOut')
         fakeAuthProvider.isAuthenticated = false;
         setTimeout(callback, 100);
     },
@@ -42,7 +38,6 @@ export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null)
 
     const signIn = async (newUser, callback) => {
-        console.log('AuthContext signIn')
         await fakeAuthProvider.signIn(() => {
             setUser(newUser)
             callback()
@@ -50,7 +45,6 @@ export const AuthProvider = ({children}) => {
     }
 
     const signOut = async (callback) => {
-        console.log('AuthContext signOut')
         await fakeAuthProvider.signOut(() => {
             setUser(null)
             callback()

@@ -1,17 +1,15 @@
 import React from 'react';
 import { useTimeout } from './useTimeout';
 
-export const Toast = (props) => {
-    useTimeout(props.close, 5000);
+const delay = 4000 //ms
+
+export const Toast = ({close, status, children}) => {
+    useTimeout(close, delay);
 
     return (
-        <div className={`toast ${props.status}-toast`}>
-            <div className="toast__text">{props.children}</div>
-            <div>
-                <button onClick={props.close} className="toast__close-btn">
-                    x
-                </button>
-            </div>
-        </div>
+        <div className={`toast ${status}-toast`}>
+            <div className="toast__text">{children}</div>
+            <p onClick={close} className="toast__close-btn">x</p>
+    </div>
     );
 };
