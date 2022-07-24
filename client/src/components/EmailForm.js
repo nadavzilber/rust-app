@@ -1,23 +1,12 @@
-import React, {useState} from 'react'
+import React, {useRef, useState} from 'react'
 import templates from '../phishing_template.json'
 //import axios from 'axios'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import '../style.css'
+import {useToast} from "../toast";
 //import {sendEmail} from "../Api";
 
-const toastProps =  {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-}
-
-
 const EmailForm = () => {
+    const toast = useToast();
     const [selectedTemplate, setSelectedTemplate] = useState(null)
     const [senderName, setSenderName] = useState('')
     const [senderEmail, setSenderEmail] = useState('')
@@ -27,6 +16,7 @@ const EmailForm = () => {
     const [text, setText] = useState('')
     const [html, setHtml] = useState('')
     const [htmlLinkText, setHtmlLinkText] = useState('')
+    const sendEmailButton = useRef()
 
     const loadTemplate = () => {
         const {senderName, senderEmail, recipientName, recipientEmail, subject, text, html, htmlLinkText} = templates[selectedTemplate]
@@ -53,20 +43,43 @@ const EmailForm = () => {
         setHtmlLinkText('')
     }
 
-    const validateAndSend = (ev) => {
+    const validateInputs = () => {
+        const missing = []
+        if (!senderName.trim()) missing.push('Sender Name')
+        if (!senderEmail.trim()) missing.push('Sender Email')
+        if (!recipientName.trim()) missing.push('Recipient Name')
+        if (!recipientEmail.trim()) missing.push('Recipient Email')
+        if (!subject.trim()) missing.push('Subject')
+        if (!text.trim()) missing.push('Text')
+        if (!html.trim()) missing.push('HTML')
+        if (!htmlLinkText.trim()) missing.push('HTML Link Text')
+        if (missing.length) {
+            toast.open('fail', `Missing fields: ${missing.join(', ')}`, reEnableSendEmailButton)
+            return false
+        }
+        return true
+    }
+
+    const validateAndSend = async (ev) => {
         ev.preventDefault()
-        if (senderName.trim() && senderEmail.trim() && recipientName.trim() && recipientEmail.trim() &&
-            subject.trim() && text.trim() && html.trim()) {
-            sendPhishingEmail()
+        sendEmailButton.current.disabled = true
+        if (validateInputs()){
+            console.log('valid email form')
+            await sendPhishingEmail()
+        } else {
+            console.log('invalid email form')
         }
     }
+
+    const reEnableSendEmailButton = () => sendEmailButton.current.disabled = false
 
     const sendPhishingEmail = async () => {
         const success = 'Successfully sent phishing email'
         const fail = 'Failed to send phishing email'
         //const res = await sendEmail(senderName, senderEmail, recipientName, recipientEmail, subject, text, html, htmlLinkText)
         //res.status === 200 && res.data.success ? toast.success(success, toastProps) :
-            toast.warn(fail, toastProps);
+            // toast.warn(fail, toastProps);
+        setTimeout(() => toast.open('success', success, reEnableSendEmailButton ), 2000);
     }
 
     const onSelectTemplate = (value) => {
@@ -82,16 +95,6 @@ const EmailForm = () => {
         <>
             <h3>Phishing Form Page</h3>
             <div className="form-container">
-            {/*<ToastContainer*/}
-            {/*    position="top-right"*/}
-            {/*    autoClose={5000}*/}
-            {/*    hideProgressBar={false}*/}
-            {/*    newestOnTop={false}*/}
-            {/*    closeOnClick*/}
-            {/*    rtl={false}*/}
-            {/*    pauseOnFocusLoss*/}
-            {/*    draggable*/}
-            {/*    pauseOnHover/>*/}
                 <div className='template-selection'>
                     <select onChange={(ev) => onSelectTemplate(ev.target.value)} defaultValue={"select"}>
                         <option value="select">Select a template</option>
@@ -108,7 +111,7 @@ const EmailForm = () => {
                     <input type="text" id="sender-name" name="sender-name" placeholder="Sender name" value={senderName} onChange={(ev) => setSenderName(ev.target.value)}/>
 
                     <label htmlFor="sender-email">Sender Email</label>
-                    <input type="text" id="sender-email" name="sender-email" placeholder="Sender email" value={senderEmail} onChange={(ev) => setSenderName(ev.target.value)}/>
+                    <input type="text" id="sender-email" name="sender-email" placeholder="Sender email" value={senderEmail} onChange={(ev) => setSenderEmail(ev.target.value)}/>
                 </div>
                 <div className="form-section">
                     <label htmlFor="recipient-email">Recipient Email</label>
@@ -130,7 +133,7 @@ const EmailForm = () => {
                 <label htmlFor="html-link-text">HTML Link Text</label>
                 <input type="text" id="html-link-text" name="html-link-text" placeholder="View details / Change password / Review" value={htmlLinkText} onChange={(ev) => setHtmlLinkText(ev.target.value)}/>
 
-                <button onClick={(ev) => validateAndSend(ev)}>Send email</button>
+                <button ref={sendEmailButton} onClick={(ev) => validateAndSend(ev)}>Send email</button>
                 <button onClick={(ev) => clearForm(ev)}>Clear form</button>
             </form>
         </div>

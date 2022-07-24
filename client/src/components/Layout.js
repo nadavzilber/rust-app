@@ -2,6 +2,7 @@ import {Link, Outlet, useNavigate} from "react-router-dom";
 import {useAuth} from "../auth/Auth";
 import AuthStatus from "./AuthStatus";
 import '../style.css'
+import React from "react";
 
 export const Layout = () => {
     const auth = useAuth();

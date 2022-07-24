@@ -1,9 +1,10 @@
+import React from "react";
 import {Route, Routes} from "react-router-dom";
 import AuthForm from "./components/AuthForm";
 import {AuthProvider, RequireAuth} from "./auth/Auth";
 import {Layout} from "./components/Layout";
 import './App.css';
-import Dashboard from "./components";
+import Dashboard from "./components/Dashboard";
 import EmailList from "./components/EmailList";
 import EmailForm from "./components/EmailForm";
 import Home from "./components/Home";
