@@ -7,7 +7,7 @@
   "subject": "Your order was returned to the sender",
   "text": "Since you couldn't be reached, your Amazon order was returned.",
   "html": "<div><h2>A total of 3 packages were returned</h2>{{maliciousLink}}</div>",
-  "htmlLinkText": "Order details"
+  "htmlLinkText": "View order details"
 },
   "instagram": {
     "senderName": "Instagram Support",
@@ -17,7 +17,7 @@
     "subject": "Urgent- Your password has expired",
     "text": "It is important that you change your password as soon as possible",
     "html": "<div><h2>Your password has expired</h2>{{maliciousLink}}</div>",
-    "htmlLinkText": "Reset password"
+    "htmlLinkText": "Reset your password"
   },
   "facebook": {
     "senderName": "Facebook Support",
@@ -27,6 +27,6 @@
     "subject": "Your account has been restricted",
     "text": "You have violated Facebook's terms and agreements",
     "html": "<div><h2>Violation #13507</h2>{{maliciousLink}}</div>",
-    "htmlLinkText": "Review"
+    "htmlLinkText": "See review"
   }
 }

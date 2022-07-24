@@ -3,6 +3,7 @@ import templates from '../../phishing_template.json'
 //import axios from 'axios'
 import '../../style.css'
 import {useToast} from "../../toast";
+import {TooltipLabel} from "../TooltipLabel";
 //import {sendEmail} from "../Api";
 
 const EmailForm = () => {
@@ -133,16 +134,20 @@ const EmailForm = () => {
                     </div>
 
                     <div className="form-section">
-                        <label htmlFor="subject">Subject</label>
+                        {/*<label htmlFor="subject">Subject</label>*/}
+                        <TooltipLabel tooltip={`The email's subject line`} htmlFor={"subject"}>Subject</TooltipLabel>
                         <input type="text" id="subject" name="subject" placeholder="Subject" value={subject} onChange={(ev) => setSubject(ev.target.value)}/>
 
-                        <label htmlFor="text">Text</label>
+                        {/*<label htmlFor="text">Text</label>*/}
+                        <TooltipLabel tooltip={`The email's text content`} htmlFor={"text"}>Text</TooltipLabel>
                         <textarea id="text" name="text" placeholder="Write something.." value={text} onChange={(ev) => setText(ev.target.value)}/>
 
-                        <label htmlFor="html">HTML</label>
+                        {/*<label htmlFor="html">HTML</label>*/}
+                        <TooltipLabel tooltip={'HTML containing a malicious link, {{maliciousLink}} will be added automatically'} htmlFor={"html"}>HTML</TooltipLabel>
                         <textarea id="html" name="html" placeholder="Write something.." value={html} onChange={(ev) => setHtml(ev.target.value)}/>
 
-                        <label htmlFor="html-link-text">HTML Link Text</label>
+                        {/*<label htmlFor="html-link-text">HTML Link Text</label>*/}
+                        <TooltipLabel tooltip={'A call to action'} htmlFor={"html-link-text"}>HTML Link Text</TooltipLabel>
                         <input type="text" id="html-link-text" name="html-link-text" placeholder="View details / Change password / Review" value={htmlLinkText} onChange={(ev) => setHtmlLinkText(ev.target.value)}/>
                     </div>
 

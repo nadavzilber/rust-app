@@ -451,3 +451,32 @@ a:visited {
     margin: 10px 0px 5px;
     font-size: 15px;
 }
+
+.label-tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px solid transparent;
+}
+
+.label-tooltip:not(:hover){
+    border-bottom: 1px dotted white;
+}
+
+.label-tooltip .tooltip-text {
+    visibility: hidden;
+    width: max-content;
+    max-width: 300px;
+    background-color: #bdd8c2;
+    color: #000;
+    text-align: center;
+    padding: 5px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    top: -18px;
+    left: 110%;
+}
+
+.label-tooltip:hover .tooltip-text {
+    visibility: visible;
+}
