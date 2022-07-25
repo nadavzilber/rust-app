@@ -29,6 +29,9 @@ export const Layout = () => {
                         <CustomLink to="emails">Emails Page</CustomLink>
                     </li>
                     <li>
+                        <CustomLink to="emails/profile">Profile</CustomLink>
+                    </li>
+                    <li>
                         <a onClick={()=>setShowModal(!showModal)}>Show Modal</a>
                     </li>
                     {userExists && <li>
