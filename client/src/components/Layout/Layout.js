@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Outlet, useNavigate} from "react-router-dom";
 import {useAuth} from "../../auth/Auth";
-import AuthStatus from "../Auth/AuthStatus";
+import LoginStatus from "../Auth/LoginStatus";
 import CustomLink from "../CustomLink";
 import {Modal} from "../Modal";
 import '../../style.css'
@@ -15,39 +15,46 @@ export const Layout = () => {
     return (
         <div className='main-container'>
             <nav className='main-navbar navbar'>
-                <AuthStatus isConnected={userExists}/>
+                <LoginStatus isConnected={userExists}/>
                 <ul className='navbar-links'>
                     <li>
-                        {/*<Link to="/">Home Page</Link>*/}
                         <CustomLink to="/">Home Page</CustomLink>
                     </li>
                     <li>
                         <CustomLink to="login">Login Page</CustomLink>
                     </li>
+                    {/*<li>*/}
+                    {/*    <CustomLink to="dashboard">Dashboard</CustomLink>*/}
+                    {/*</li>*/}
                     <li>
-                        {/*<Link to="emails">Emails</Link>*/}
-                        <CustomLink to="emails">Emails Page</CustomLink>
+                        <CustomLink to="dashboard/sent-emails" isProtected={!userExists}>Sent Emails</CustomLink>
                     </li>
                     <li>
-                        <CustomLink to="emails/profile">Profile</CustomLink>
+                        <CustomLink to="dashboard/compose-email" isProtected={!userExists}>Compose Email</CustomLink>
+                    </li>
+                    <li>
+                        <CustomLink to="dashboard/profile" isProtected={!userExists}>Profile</CustomLink>
                     </li>
                     <li>
                         <a onClick={()=>setShowModal(!showModal)}>Show Modal</a>
                     </li>
                     {userExists && <li>
-                        <a onClick={() => auth.signOut(() => navigate("/"))}>Sign Out</a>
+                        <a onClick={() => auth.signOut(auth.user, () => navigate("/"))}>Sign Out</a>
                     </li>}
                 </ul>
             </nav>
+
             <Modal
                 show={showModal}
                 close={()=> setShowModal(false)}>
+                {/* children: */}
                 <p>Nadav's Modal</p>
                 <p>1 2 3 4 5</p>
                 <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
                 <button>Test Button 1</button>
                 <button>Test Button 2</button>
             </Modal>
+
             <Outlet /> {/*this enables nested routes*/}
         </div>
     )

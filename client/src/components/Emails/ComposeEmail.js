@@ -4,7 +4,7 @@ import {TooltipLabel} from "../TooltipLabel";
 import templates from '../../phishing_template.json'
 import '../../style.css'
 
-const EmailForm = () => {
+const ComposeEmail = () => {
     const toast = useToast();
     const [selectedTemplate, setSelectedTemplate] = useState(null)
     const [senderName, setSenderName] = useState('')
@@ -64,10 +64,8 @@ const EmailForm = () => {
         ev.preventDefault()
         sendEmailButton.current.disabled = true
         if (validateInputs()){
-            console.log('valid email form')
             await sendPhishingEmail()
         } else {
-            console.log('invalid email form')
             sendEmailButton.current.disabled = false
             setIsLoading(false)
         }
@@ -84,7 +82,6 @@ const EmailForm = () => {
         const toastProps = []
         isSuccessful ? toastProps.push('success', success) : toastProps.push('fail', fail)
         toastProps.push(reEnableSendEmailButton)
-        console.log('randomNum:',randomNum,'isSuccessful?',isSuccessful,'toastProps:',toastProps)
         setTimeout(() => {
             setIsLoading(false)
             toast.open(...toastProps)
@@ -107,7 +104,7 @@ const EmailForm = () => {
                     </select>
                     <button disabled={!selectedTemplate} onClick={loadTemplate}>Load</button>
                 </div>
-                <form className="phishing-form">
+                <form className="form">
                     <div className="form-section">
                         <label htmlFor="sender-name">Sender Name</label>
                         <input type="text" id="sender-name" name="sender-name" placeholder="Sender name" value={senderName} onChange={(ev) => setSenderName(ev.target.value)}/>
@@ -148,4 +145,4 @@ const EmailForm = () => {
         </div>)
 }
 
-export default EmailForm;
+export default ComposeEmail;

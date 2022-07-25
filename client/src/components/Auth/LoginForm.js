@@ -3,8 +3,9 @@ import FormField from "../FormField";
 import {useAuth} from "../../auth/Auth";
 import {useNavigate, useLocation, Navigate, Link} from 'react-router-dom'
 import '../../style.css'
+import {useToast} from "../../toast";
 
-const AuthForm = () => {
+const LoginForm = () => {
     const [formType, setFormType] = useState('login')
     const [isLoginForm, setIsLoginForm] = useState(true)
     const usernameRef = useRef();
@@ -15,6 +16,9 @@ const AuthForm = () => {
     const location = useLocation();
     const auth = useAuth();
     const from = location.state?.from?.pathname || "/";
+    const toast = useToast()
+    const success = 'Successfully signed in. Redirecting...'
+    const fail = 'Failed sign-in attempt.'
 
     // if (auth.user) {
     //     console.log('already connected... redirecting!!!!!')
@@ -25,20 +29,24 @@ const AuthForm = () => {
     //     return <Navigate to="/" state={{ from: location }} replace />;
     // }
 
+    const afterSignIn = (status) => {
+        const toastProps = status ? ['success', success, () => navigate(from, { replace: true })] : ['fail', fail]
+        toast.open(...toastProps)
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = {
+
+        const credentials = {
             email: emailRef.current.value,
             password: passwordRef.current.value
         }
         if (!isLoginForm) {
-            data.username = usernameRef.current.value
+            credentials.username = usernameRef.current.value
         }
-        if (validateData(data)){
-            //call API and handle response
-            await auth.signIn({email: data.email}, ()=> {
-                navigate(from, { replace: true })
-            })
+        if (validateData(credentials)){
+            //const credentials = {email: data.email, password: data.password}
+            isLoginForm ? await auth.signIn(credentials, afterSignIn) : await auth.signUp(credentials, afterSignIn)
         }
     };
 
@@ -81,4 +89,4 @@ const AuthForm = () => {
     );
 }
 
-export default AuthForm
+export default LoginForm

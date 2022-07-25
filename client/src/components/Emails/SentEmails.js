@@ -3,7 +3,7 @@ import dummyData from '../../dummyData'
 import '../../style.css'
 import Email from "./Email";
 
-const EmailList = () => {
+const SentEmails = () => {
     const [emails, setEmails] = useState(dummyData)
     return (
         <>
@@ -16,4 +16,4 @@ const EmailList = () => {
     )
 }
 
-export default EmailList
+export default SentEmails

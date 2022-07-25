@@ -1,14 +1,16 @@
 import React from "react";
 import {Route, Routes} from "react-router-dom";
-import AuthForm from "./components/Auth/AuthForm";
+import LoginForm from "./components/Auth/LoginForm";
 import {AuthProvider, RequireAuth} from "./auth/Auth";
 import {Layout} from "./components/Layout/Layout";
 import './App.css';
-import EmailsPage from "./components/Emails/Dashboard";
-import EmailList from "./components/Emails/EmailList";
-import EmailForm from "./components/Emails/EmailForm";
+import Dashboard from "./components/Dashboard/Dashboard";
+import SentEmails from "./components/Emails/SentEmails";
+import ComposeEmail from "./components/Emails/ComposeEmail";
 import Home from "./components/Home/Home";
-import {ProfilePage} from "./components/Profile/ProfilePage";
+import {Profile} from "./components/Profile/Profile";
+import {ViewProfile} from "./components/Profile/ViewProfile";
+import {EditProfile} from "./components/Profile/EditProfile";
 
 function App() {
   return (
@@ -18,13 +20,18 @@ function App() {
           <Routes>
             <Route element={<Layout />}>
               <Route path="/" element={<Home/>}/>
-              <Route path="login" element={<AuthForm/>}/>
-              <Route path="emails" element={<RequireAuth>
-                <EmailsPage/>
+              <Route path="login" element={<LoginForm/>}/>
+              <Route path="dashboard" element={<RequireAuth>
+                <Dashboard/>
               </RequireAuth>}> {/* nested routes are automatically protected by RequireAuth */}
-                <Route path="view" element={<EmailList/>}/>
-                <Route path="send" element={<EmailForm/>}/>
-                <Route path="profile" element={<ProfilePage/>}/>
+                <Route path="sent-emails" element={<SentEmails/>}/>
+                <Route path="compose-email" element={<ComposeEmail/>}/>
+                <Route path="profile" element={<Profile/>}>
+                  {/* This is another element that can be rendered alongside with Profile */}
+                  {/* <Route index element={<div>Profile default index page</div>} /> */}
+                  <Route path="view" element={<ViewProfile/>}/>  {/* TODO: fix the index */}
+                  <Route path="edit" element={<EditProfile/>}/>
+                </Route>
                 {/* This is another element that can be rendered alongside with Emails
                 <Route index element={<div>Emails default index page</div>} /> */}
               </Route>

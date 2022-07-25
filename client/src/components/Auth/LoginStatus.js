@@ -1,6 +1,6 @@
 import React from "react"
 
-const AuthStatus = ({isConnected}) => {
+const LoginStatus = ({isConnected}) => {
     const clsName = isConnected ? 'connected' : 'disconnected'
     const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1)
     return (
@@ -11,4 +11,4 @@ const AuthStatus = ({isConnected}) => {
     )
 }
 
-export default AuthStatus
+export default LoginStatus

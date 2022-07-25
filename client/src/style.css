@@ -253,6 +253,10 @@ button:not(:disabled):hover{
     margin-bottom: 50px;
 }
 
+.profile-page-container .navbar {
+    width: max-content;
+}
+
 .navbar {
     overflow: hidden;
     background-color: #35455b;
@@ -271,9 +275,9 @@ a:visited {
     float: left;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px;
+    padding: 16px;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 20px;
     cursor: pointer;
 }
 
@@ -365,7 +369,7 @@ a:visited {
     margin: 10px 0;
 }
 
-.phishing-form {
+.form {
     /*font-family: monospace;*/
     margin-bottom: 35px;
     padding: 10px;
@@ -378,13 +382,13 @@ a:visited {
     display: block;
 }
 
-.phishing-form label {
+.form label {
     margin: 10px 0px 5px;
     /*font-family: Arial, Helvetica, sans-serif;*/
     font-size: 15px;
 }
 
-.phishing-form input, .phishing-form textarea {
+.form input, .form textarea {
     margin: 5px 0px 10px;
     padding: 5px;
     border: 1px solid rgb(191, 191, 191);
@@ -417,6 +421,9 @@ a:visited {
     /*padding: 8px;*/
 }
 
+.navbar-links li .protected {
+    color: #f19e9e;
+}
 
 /*NEW STYLES:*/
 

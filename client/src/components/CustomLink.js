@@ -2,10 +2,11 @@ import React from "react";
 import { Link, useMatch, useResolvedPath} from "react-router-dom";
 import '../style.css'
 
-const CustomLink = ({children, to, ...props}) => {
+const CustomLink = ({children, to, isProtected, ...props}) => {
     const resolved = useResolvedPath(to);
     const match = useMatch({ path: resolved.pathname, end: true });
-    const className = match ? 'active-link' : ''
+    let className = match ? 'active-link' : ''
+    if (isProtected) className += ' protected'
 
     return (
         <div>
